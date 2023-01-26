@@ -2,7 +2,10 @@
 const get = ( model ) => async ( req, res ) => {
     try {
         let data = await model.find();
-        res.send( data );
+        res.send({
+            success: true,
+            data: data
+        })
     } catch ( err ) {
         console.log( err );
     }
@@ -11,7 +14,10 @@ const get = ( model ) => async ( req, res ) => {
 const post = ( model ) => async ( req, res ) => {
     try {
         let result = await model.create( req.body );
-        res.send( result );
+        res.send({
+            success: true,
+            data: result
+        })
     } catch ( err ) {
         console.log( err );
     }

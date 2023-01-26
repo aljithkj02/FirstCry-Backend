@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const Product = require('../models/product.model');
-const crudController = require('./crud.controller');
+const crudController = require('../controller/crud.controller');
 
 const router =  Router();
 

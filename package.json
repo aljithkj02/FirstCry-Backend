@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/aljithkj02/FirstCry-Backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.4"
   }
 }
