@@ -44,13 +44,18 @@ router.post('/login', async(req, res)=> {
                 message: "Incorrect password"
             })
         }
-        let { name, email, _id } = existingUser;
+        let { name, email, _id, mobile } = existingUser;
         let userObj = {
             name, email, _id
         }
         let token = generateToken(userObj);
         res.send({
             success: true,
+            user: {
+                name,
+                mobile,
+                _id
+            },
             token
         })
 
