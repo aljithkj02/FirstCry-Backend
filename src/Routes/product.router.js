@@ -80,10 +80,10 @@ router.get( '/cart/:id', authorize, async (req, res)=> {
     }
 })
 
-router.post('/getone', authorize, async (req, res)=> {
-    let _id = req.body._id;
+router.get('/getone/:id', authorize, async (req, res)=> {
+    let id = req.params.id;
     try {
-        let product = await Product.findOne({ _id });
+        let product = await Product.findOne({ _id: id});
         if(product.length == 0) {
             return {
                 success: false,
@@ -186,6 +186,19 @@ router.get( '/search/:text', async(req, res)=> {
             success: false,
             error: err.message,
             size: 0
+        })
+    }
+})
+
+router.get('/clearcart', authorize, async (req, res)=> { 
+    let user = req.user;
+    try {
+        user = await User.findOneAndUpdate({ _id: user._id}, { cart: []});
+        res.send({data: user})
+    } catch (err) {
+        res.send({
+            success: false,
+            error: err.message
         })
     }
 })

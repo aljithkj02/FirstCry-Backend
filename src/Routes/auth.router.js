@@ -53,6 +53,7 @@ router.post('/login', async(req, res)=> {
             success: true,
             user: {
                 name,
+                mobile,
                 _id
             },
             token
