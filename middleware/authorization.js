@@ -16,7 +16,8 @@ const authorize = async (req, res, next)=> {
             if(err) {
                 return res.send({
                     status: false,
-                    message: "Invalid Token! Login again"
+                    error: "Invalid Token! Login again",
+                    message: "Please Login First"
                 })
             }
             const { email, _id } = user;

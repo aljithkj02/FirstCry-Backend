@@ -6,7 +6,7 @@ const authorize = require('../middleware/authorization');
 
 const router =  Router();
 
-router.get( '/', authorize,  async ( req, res ) => {
+router.get( '/',  async ( req, res ) => {
     crudController( Product ).get( req, res );
 })
 
@@ -80,7 +80,7 @@ router.get( '/cart/:id', authorize, async (req, res)=> {
     }
 })
 
-router.get('/getone/:id', authorize, async (req, res)=> {
+router.get('/getone/:id', async (req, res)=> {
     let id = req.params.id;
     try {
         let product = await Product.findOne({ _id: id});
