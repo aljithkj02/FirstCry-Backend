@@ -18,7 +18,11 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        cart: [String]
+        cart: [String],
+        login_type: {
+            type: String,
+            required: true
+        }
     },
     {
         timestamps: true

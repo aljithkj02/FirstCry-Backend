@@ -12,12 +12,12 @@ function generateToken (data){
 
 router.post('/register', async (req, res)=> {
     try {
-        let existingUser = await User.findOne({ email: req.body.email, mobile: req.body.mobile});
+        let existingUser = await User.findOne({ login_type: req.body.login_type, email: req.body.email, mobile: req.body.mobile});
         if(existingUser) {
             return res.send({
                 success: false,
                 message: 'User with this email or number already exist'
-            })
+            }) 
         }
         let result = await crudController(User).post(req, res);
     } catch (err) {
