@@ -7,16 +7,14 @@ const userSchema = mongoose.Schema(
             required: true
         },
         mobile: {
-            type: String,
-            required: true
+            type: String
         },
         email: {
             type: String,
             required: true
         },
         password: {
-            type: String,
-            required: true
+            type: String
         },
         cart: [String],
         login_type: {

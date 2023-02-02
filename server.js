@@ -19,7 +19,7 @@ app.use(express.json());
 app.get('/google', passport.authenticate('google', { scope: ['profile', 'email']}));   
 
 app.get('/google/callback', passport.authenticate('google', 
-        { successRedirect: 'http://127.0.0.1:5500/login/login.html', failureRedirect: '/failure' }));
+        { successRedirect: process.env.GOOGLE_SUCCESS_REDIRECT, failureRedirect: process.env.GOOGLE_FAILURE_REDIRECT }));
 
 app.use('/products', productRouter); 
 app.use('/auth', authRouter);

@@ -1,5 +1,6 @@
 let passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleUser = require('../models/googleUser.model');
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -7,9 +8,14 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/google/callback",
     passReqToCallbaack: true
   },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile) 
-       return done(null, profile);   
+  async function(accessToken, refreshToken, profile, done) {
+      let userObj = {
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            login_type: 'google'
+      }
+      await GoogleUser.create(userObj);
+      return done(null, profile);   
   }    
 ));
 passport.serializeUser((user, done)=> {
