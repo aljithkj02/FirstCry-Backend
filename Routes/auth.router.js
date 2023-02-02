@@ -3,6 +3,7 @@ const crudController = require('../controller/crud.controller');
 const User = require('../models/user.model');
 const GoogleUser = require('../models/googleUser.model');
 const jwt = require('jsonwebtoken');
+let bcrypt = require('bcryptjs');
 
 const router = Router();
 
@@ -20,6 +21,8 @@ router.post('/register', async (req, res)=> {
                 message: 'User with this email or number already exist'
             }) 
         }
+        let hash = bcrypt.hashSync(req.body.password);
+        req.body.password = hash;
         let result = await crudController(User).post(req, res);
     } catch (err) {
         res.send({
@@ -38,8 +41,10 @@ router.post('/login', async(req, res)=> {
                 message: "User with this email doesn't exist"
             })
         }
-        existingUser = await User.findOne({ password: req.body.password});
-        if(!existingUser){
+
+        let user = bcrypt.compareSync(req.body.password, existingUser.password, 10);
+
+        if(!user){
             return res.send({
                 status: false,
                 message: "Incorrect password"
