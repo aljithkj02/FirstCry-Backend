@@ -10,7 +10,7 @@ const session = require('express-session');
 
 const app = express();
 app.use(cors());
-app.use(session({ secret: 'cats' }));
+app.use(session({ secret: process.env.SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
