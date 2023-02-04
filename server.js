@@ -1,8 +1,8 @@
 const express = require('express');
 require('dotenv').config();
 const connectDatabase = require('./config/db');
-const productRouter = require('./routes/product.router');
-const authRouter = require('./routes/auth.router'); 
+const productRouter = require('./Routes/product.router');
+const authRouter = require('./Routes/auth.router'); 
 const cors = require('cors')
 const passport = require('passport');
 require('./controller/google.authenticate');
@@ -53,5 +53,4 @@ function startServer(){
     })
     
 }
-
-module.exports = startServer;
+startServer();
