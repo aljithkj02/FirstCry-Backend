@@ -6,8 +6,11 @@ const productRouter = require('./Routes/product.router');
 const authRouter = require('./Routes/auth.router'); 
 const cors = require('cors')
 const passport = require('passport');
-require('./controller/google.authenticate');
+// require('./controller/google.authenticate');
 const session = require('express-session');
+
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const GoogleUser = require('./models/googleUser.model');
 
 const app = express();
 app.use(cors());
@@ -45,17 +48,39 @@ app.get('/', (req, res)=>{
     res.send(process.env.PORT); 
 })
 
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "https://firstcry-ix8k.onrender.com/google/callback",
+    passReqToCallbaack: true
+  },
+  async function(accessToken, refreshToken, profile, done) {
+      let userObj = {
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            login_type: 'google'
+      }
+      await GoogleUser.create(userObj);
+      return done(null, profile);   
+  }    
+));
+passport.serializeUser((user, done)=> {
+    done(null, user);
+})
+
+passport.deserializeUser((user, done)=> {
+    done(null, user);
+})
 
 
-
-function startServer(){
-    connectDatabase().then((res)=> {
+async function startServer(){
+    try {
         app.listen(process.env.PORT, ()=> {
             console.log('Server started, Listening to localhost: ', process.env.PORT);
         })
-    }).catch((err)=> {
+        await connectDatabase();
+    } catch (err) {
         console.log(err);
-    })
-    
+    }
 }
 startServer();
