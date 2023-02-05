@@ -1,5 +1,6 @@
-const express = require('express');
+
 require('dotenv').config();
+const express = require('express');
 const connectDatabase = require('./config/db');
 const productRouter = require('./Routes/product.router');
 const authRouter = require('./Routes/auth.router'); 
@@ -10,7 +11,11 @@ const session = require('express-session');
 
 const app = express();
 app.use(cors());
-app.use(session({ secret: process.env.SESSION_SECRET }));
+app.use(session({ 
+    secret: process.env.SESSION_SECRET ,
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
