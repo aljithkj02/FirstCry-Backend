@@ -2,7 +2,7 @@
 Deployed Link: <a href="https://first-cry.netlify.app/" alt="link">Firstcry<a>
 
 
-Firstcry Frontend Github Link: <a href="https://github.com/adityarajbenn/firstCry" alt="link">Frontend Github Link<a>
+Firstcry Frontend Github Link: <a href="https://github.com/aljithkj02/FirstCry-Frontend" alt="link">Frontend Github Link<a>
 
 ## tech stack --> HTML | CSS | JS | Node JS | Express | MongoDB
 
